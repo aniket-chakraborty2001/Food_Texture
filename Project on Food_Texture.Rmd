@@ -1,0 +1,152 @@
+---
+Author: "Aniket Chakraborty"
+Last Updated: "07/06/2023 or 7th June 2023"
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r Installing packages}
+# Installing and loading required packages
+install.packages("tidyverse")
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+```
+
+```{r Reading the Food_Texture_Data file}
+# Reading the Food_Texture_Data using read.csv() function
+food_data <- read.csv("Food_Texture_Data.csv")
+```
+
+```{r Previewing the data frame}
+# Using View() function to preview the data frame
+View(food_data)
+```
+
+```{r Getting the structure of the data frame}
+# Using str() function to get the structure of the data frame
+str(food_data)
+```
+
+```{r Getting summary statistics}
+# summary() or glimpse() any function can be used in this case
+summary(food_data)
+```
+
+```{r Getting the column and row number}
+# Using nrow() and ncol() function to get the number of rows and columns
+nrow(food_data)
+ncol(food_data)
+```
+```{r Getting the column names of the data frame}
+# Using colnames() function to get the variable names
+colnames(food_data)
+```
+```{r Checking first few rows of the data frame}
+# We use head() function to get first few rows
+head(food_data,5)
+```
+```{r Create a column named price}
+# Here we use mutate() function to create a column and store it in another variable
+food_data_01 <- food_data %>% mutate(Price=Density/(Oil+Crispy+Fracture+Hardness))
+head(food_data_01)
+```
+```{r Renaming the Oil column as Oil Percentage}
+# Here we rename the column Oil to Oil Percentage and store it in a data frame
+food_data_02 <- food_data_01 %>% rename(Oil_Percentage=Oil,Crispyness=Crispy,Price_in_dollar=Price,Product=X)
+head(food_data_02)
+```
+```{r Create a column named price_in_Rs}
+# Here we use mutate() function
+food_data_03 <- food_data_02 %>% mutate(Price_in_Rs= 80*Price_in_dollar)
+head(food_data_03)
+```
+```{r Find minimum, maximum and average of oil percentage}
+# We use summarize() function to calculate this values
+food_data_03 %>% summarize(min(Oil_Percentage),max(Oil_Percentage),mean(Oil_Percentage))
+```
+```{r Find minimum, maximum, average of Density}
+# We use summarize() function to calculate this values
+food_data_03 %>% summarize(min(Density),max(Density),mean(Density))
+```
+
+```{r Find minimum, maximum, average of Crispyness}
+# We use summarize() function to calculate this values
+food_data_03 %>% summarize(min(Crispyness),max(Crispyness),mean(Crispyness))
+```
+
+```{r Find minimum, maximum and average of Fracture}
+# We use summarize() function to calculate this values
+food_data_03 %>% summarize(min(Fracture),max(Fracture),mean(Fracture))
+```
+
+```{r Find minimum, maximum and average of Hardness}
+# We use summarize() function to calculate this values
+food_data_03 %>% summarize(min(Hardness),max(Hardness),mean(Hardness))
+```
+
+
+```{r Find minimum, maximum and average of Price_in_Rs}
+# We use summarize() function to calculate this values
+food_data_03 %>% summarize(min(Price_in_Rs),max(Price_in_Rs),mean(Price_in_Rs))
+```
+
+```{r Previewing the latest data frame}
+# Use View() function to preview this data frame
+View(food_data_03)
+```
+
+
+```{r Use filter() function to filter rows}
+# Find the product that has lowest Price_in_Rs
+food_data_03 %>% filter(Price_in_Rs == min(Price_in_Rs)) %>% select(Product)
+```
+
+```{r Using ggplot() function to plot a dot plot}
+# Dot plot of Density vs Price_in_Rs
+p=ggplot(data=food_data_03)+
+  geom_point(mapping = aes(x=Density,y=Price_in_Rs),color='red',alpha=0.8,size=2)+
+  labs(title='Distribution of Price(Rs) along Density',x='Density',y='Price In Rupees')
+p
+```
+```{r Using ggplot() function to plot-2}
+# Dot plot of Oil_Percentage vs Price_in_Rs
+p1=ggplot(data=food_data_03)+
+  geom_point(mapping = aes(x=Oil_Percentage,y=Price_in_Rs),color='red',alpha=0.8,size=2)+
+  labs(title='Distribution of Price(Rs) along Oil_Percentage',x='Oil Percentage',y='Price In Rupees')
+p1
+```
+
+```{r Using ggplot() function to plot-3}
+# Dot plot of Crispness vs Price_in_Rs
+p2=ggplot(data=food_data_03)+
+  geom_point(mapping = aes(x=Crispyness,y=Price_in_Rs),color='red',alpha=0.8,size=2)+
+  labs(title='Distribution of Price(Rs) along Crispyness',x='Crispyness',y='Price In Rupees')
+p2
+```
+
+```{r Using ggplot() function to plot-4}
+# Dot plot of Fracture vs Price_in_Rs
+p3=ggplot(data=food_data_03)+
+  geom_point(mapping = aes(x=Fracture,y=Price_in_Rs),color='red',alpha=0.8,size=2)+
+  labs(title='Distribution of Price(Rs) along Fracture',x='Fracture',y='Price In Rupees')
+p3
+```
+
+```{r Using ggplot() to plot-5}
+# Dot plot of Hardness vs Price_in_Rs
+p4=ggplot(data=food_data_03)+
+  geom_point(mapping = aes(x=Hardness,y=Price_in_Rs),color='red',alpha=0.8,size=2)+
+  labs(title='Distribution of Price(Rs) along Hardness',x='Hardness',y='Price In Rupees')
+p4
+```
+
+
+
+
+
+
+
+
+
+
