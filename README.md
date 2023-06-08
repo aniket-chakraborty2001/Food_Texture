@@ -1,4 +1,4 @@
-# Food_Texture
+# PROJECT ON: Food_Texture
 Here I use the Food_Texture Data set and use data mining steps to complete the project
 ### Introduction:
 In this project we will use the Food_Twxture_Data which is given in the project files as .csv file. This data we get from the website <https://openmv.net/info/food-texture>
